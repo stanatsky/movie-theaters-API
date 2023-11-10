@@ -83,8 +83,6 @@ showsRouter.put("/:id/updates", async (req, res) => {
     if (!show) {
       return res.status(404).json({ error: "Show not found" });
     }
-
-    // Update the status of the show
     show.status = status;
     await show.save();
 
