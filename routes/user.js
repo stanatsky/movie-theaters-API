@@ -33,5 +33,19 @@ usersRouter.get("/:id/shows", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+usersRouter.put("/:uId/shows/:sId", async (req, res) => {
+  const uId = req.params.uId;
+  const sId = req.params.sId;
+
+  try {
+    const user = await User.findByPk(uId);
+    const show = await Show.findByPk(sId);
+    await user.addShow(show);
+    res.json({ message: "Show added for the user" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 module.exports = usersRouter;
